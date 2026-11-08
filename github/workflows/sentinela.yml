@@ -1,0 +1,25 @@
+name: Sentinela Meteorológico Óbidos
+
+on:
+  schedule:
+    # Executa automaticamente de hora a hora (minuto 0)
+    - cron: '0 * * * *'
+  workflow_dispatch: # Permite acionar manualmente na aba Actions
+
+jobs:
+  run-sentinela:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependências
+        run: pip install -r requirements.txt
+
+      - name: Executar Sentinela
+        run: python sentinela.py
